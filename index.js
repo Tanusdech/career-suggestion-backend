@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 const auth = new google.auth.GoogleAuth({
-  credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT),
+  keyFile: process.env.GOOGLE_APPLICATION_CREDENTIALS, // ใช้ path ไฟล์ JSON
   scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
 
