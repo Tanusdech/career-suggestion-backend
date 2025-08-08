@@ -16,6 +16,11 @@ const auth = new google.auth.GoogleAuth({
 
 const sheets = google.sheets({ version: 'v4', auth });
 
+// เพิ่ม route '/' สำหรับทดสอบ
+app.get('/', (req, res) => {
+  res.send('Backend is working! Hello from Render!');
+});
+
 app.post('/feedback', async (req, res) => {
   try {
     const { rating, feedbackText, deviceType, browser, pageVersion, sessionId } = req.body;
@@ -26,7 +31,7 @@ app.post('/feedback', async (req, res) => {
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: 'CareerSuggestion_Feedback!A:G',   // <-- แก้ตรงนี้เป็นชื่อแท็บจริง
+      range: 'CareerSuggestion_Feedback!A:G',
       valueInputOption: 'RAW',
       resource: { values },
     });
@@ -38,6 +43,8 @@ app.post('/feedback', async (req, res) => {
   }
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`✅ Backend running on port ${process.env.PORT}`);
+const PORT = process.env.PORT || 10000;
+
+app.listen(PORT, () => {
+  console.log(`✅ Backend running on port ${PORT}`);
 });
