@@ -10,13 +10,13 @@ app.use(cors());
 app.use(express.json());
 
 const auth = new google.auth.GoogleAuth({
-  keyFile: process.env.GOOGLE_SERVICE_ACCOUNT_JSON,
+  credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT),
   scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
 
 const sheets = google.sheets({ version: 'v4', auth });
 
-// เพิ่ม route '/' สำหรับทดสอบ
+// route ทดสอบ
 app.get('/', (req, res) => {
   res.send('Backend is working! Hello from Render!');
 });
